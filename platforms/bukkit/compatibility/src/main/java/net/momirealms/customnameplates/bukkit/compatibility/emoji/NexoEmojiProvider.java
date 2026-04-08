@@ -41,8 +41,9 @@ public class NexoEmojiProvider implements EmojiProvider {
             Class<?> glyphClass = Glyph.class;
             this.hasPermissionMethod = findMethod(glyphClass, "hasPermission");
             this.characterMethod = findMethod(glyphClass, "character", "getCharacter", "getChars");
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to initialize NexoEmojiProvider", e);
+        } catch (Throwable e) {
+            throw new RuntimeException("Failed to initialize NexoEmojiProvider. This may be caused by an incompatible Nexo version. " +
+                    "Please ensure you are using a Nexo version compatible with this build of CustomNameplates.", e);
         }
     }
 
@@ -59,7 +60,7 @@ public class NexoEmojiProvider implements EmojiProvider {
                 if (hasPermissionMethod != null) {
                     try {
                         hasPermission = (boolean) hasPermissionMethod.invoke(glyph, (Player) player.player());
-                    } catch (Exception ignored) {
+                    } catch (Throwable ignored) {
                     }
                 }
                 if (hasPermission) {
@@ -68,7 +69,7 @@ public class NexoEmojiProvider implements EmojiProvider {
                     text = text.replace(entry.getKey(), "<white><font:default>" + character + "</font></white>");
                 }
             }
-        } catch (Exception ignored) {
+        } catch (Throwable ignored) {
         }
         return text;
     }

@@ -87,7 +87,7 @@ public class BukkitChatManager extends AbstractChatManager {
             try {
                 this.emojiProviders.add(new NexoEmojiProvider());
                 plugin.debug(() -> "NexoEmojiProvider Enabled");
-            } catch (Exception ignore) {
+            } catch (Throwable ignore) {
             }
         }
     }
