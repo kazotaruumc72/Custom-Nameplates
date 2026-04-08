@@ -42,7 +42,8 @@ public class NexoEmojiProvider implements EmojiProvider {
             this.hasPermissionMethod = findMethod(glyphClass, "hasPermission");
             this.characterMethod = findMethod(glyphClass, "character", "getCharacter", "getChars");
         } catch (Throwable e) {
-            throw new RuntimeException("Failed to initialize NexoEmojiProvider", e);
+            throw new RuntimeException("Failed to initialize NexoEmojiProvider. This may be caused by an incompatible Nexo version. " +
+                    "Please ensure you are using a Nexo version compatible with this build of CustomNameplates.", e);
         }
     }
 
