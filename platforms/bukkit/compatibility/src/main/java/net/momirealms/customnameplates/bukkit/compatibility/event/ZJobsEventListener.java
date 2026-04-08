@@ -26,17 +26,18 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 /**
- * Example listener for zJobs plugin events.
- * This demonstrates how to track JobExpGainEvent and similar events.
+ * Listener for zJobs plugin events.
+ * This tracks JobExpGainEvent and JobLevelUpEvent to activate/deactivate conditions.
  *
  * To enable this listener, it needs to be registered in the main plugin class.
+ * See BukkitCustomNameplates.java where the hook is registered when zJobs is enabled.
  *
  * Example configuration usage:
  * requirements:
  *   event-type: "JobExpGainEvent"
  *
- * Note: This is a template. The actual JobExpGainEvent class needs to be imported
- * from the zJobs plugin when it's available as a dependency.
+ * Note: This requires zJobs to be installed on the server.
+ * The event classes will be loaded at runtime when zJobs is present.
  */
 public class ZJobsEventListener implements Listener {
 
@@ -47,21 +48,17 @@ public class ZJobsEventListener implements Listener {
         this.plugin = plugin;
     }
 
-    /**
-     * Uncomment and use this method when zJobs is available as a dependency:
-     *
-     * @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-     * public void onJobExpGain(fr.maxlego08.zjobs.api.event.JobExpGainEvent event) {
-     *     Player player = event.getPlayer();
-     *     markEventForPlayer(player, "JobExpGainEvent", DEFAULT_DISPLAY_DURATION);
-     * }
-     *
-     * @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-     * public void onJobLevelUp(fr.maxlego08.zjobs.api.event.JobLevelUpEvent event) {
-     *     Player player = event.getPlayer();
-     *     markEventForPlayer(player, "JobLevelUpEvent", 60); // 3 seconds
-     * }
-     */
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onJobExpGain(fr.maxlego08.zjobs.api.event.JobExpGainEvent event) {
+        Player player = event.getPlayer();
+        markEventForPlayer(player, "JobExpGainEvent", DEFAULT_DISPLAY_DURATION);
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onJobLevelUp(fr.maxlego08.zjobs.api.event.JobLevelUpEvent event) {
+        Player player = event.getPlayer();
+        markEventForPlayer(player, "JobLevelUpEvent", 60); // 3 seconds
+    }
 
     /**
      * Helper method to mark an event as active for a player
