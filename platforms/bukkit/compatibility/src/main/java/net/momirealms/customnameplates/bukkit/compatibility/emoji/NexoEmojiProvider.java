@@ -63,6 +63,7 @@ public class NexoEmojiProvider implements EmojiProvider {
                     }
                 }
                 if (hasPermission) {
+                    if (characterMethod == null) continue;
                     String character = String.valueOf(characterMethod.invoke(glyph));
                     text = text.replace(entry.getKey(), "<white><font:default>" + character + "</font></white>");
                 }
