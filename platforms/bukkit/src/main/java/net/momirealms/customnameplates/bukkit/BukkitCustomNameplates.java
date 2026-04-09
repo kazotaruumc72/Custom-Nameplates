@@ -43,6 +43,7 @@ import net.momirealms.customnameplates.bukkit.compatibility.NameplatesExtraExpan
 import net.momirealms.customnameplates.bukkit.compatibility.cosmetic.ECosmeticsHook;
 import net.momirealms.customnameplates.bukkit.compatibility.cosmetic.HMCCosmeticsHook;
 import net.momirealms.customnameplates.bukkit.compatibility.cosmetic.MagicCosmeticsHook;
+import net.momirealms.customnameplates.bukkit.compatibility.event.ZJobsEventListener;
 import net.momirealms.customnameplates.bukkit.compatibility.perm.LuckPermsEventListeners;
 import net.momirealms.customnameplates.bukkit.compatibility.quest.TypeWriterListener;
 import net.momirealms.customnameplates.bukkit.compatibility.region.WorldGuardRegion;
@@ -216,6 +217,13 @@ public class BukkitCustomNameplates extends CustomNameplates implements Listener
         if (Bukkit.getPluginManager().isPluginEnabled("Typewriter")) {
             try {
                 TypeWriterListener listener = new TypeWriterListener(this);
+                Bukkit.getPluginManager().registerEvents(listener, this.getBootstrap());
+            } catch (Throwable ignore) {
+            }
+        }
+        if (Bukkit.getPluginManager().isPluginEnabled("zJobs")) {
+            try {
+                ZJobsEventListener listener = new ZJobsEventListener(this);
                 Bukkit.getPluginManager().registerEvents(listener, this.getBootstrap());
             } catch (Throwable ignore) {
             }
